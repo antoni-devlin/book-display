@@ -52,4 +52,4 @@ constructBooks(await getBooks(4));
 
 // parseBooks(await getBooks(4));
 
-parseBooks(await getBooks(4));
+export {}; //Added to stop tsc yelling about top-level awaits...
