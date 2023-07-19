@@ -21,25 +21,11 @@ async function getBooks(bookshelfId: number) {
 }
 
 // parsebooks parses the json response received from getBooks to make each bit of data easier to work with
-function parseBooks(booksObject: any) {
-  booksObject["items"].forEach((book: any) => {
-    let bookId = book.id;
-    let title = book.volumeInfo.title;
-    let authors = book.volumeInfo.authors;
-    let author = authors[0];
-    let datePublished = book.volumeInfo.publishedDate;
-    let description = book.volumeInfo.description;
-    let pageCount = book.volumeInfo.pageCount;
-    let thumbnailPath = book.volumeInfo.imageLinks.thumbnail;
-    let infoPageURL = book.volumeInfo.infoLink;
-    console.log(
-      `${bookId} - ${title} by ${author} (${datePublished}) - ${pageCount} pages long
-      ${description}
-      ${thumbnailPath}
-      More info at: ${infoPageURL}
-      `
-    );
-  });
+
+function constructBooks(jsonResponse: any) {
+  let ids = jsonResponse["items"].map((x: any) => x.id);
+  let titles = jsonResponse["items"].map((x: any) => x.volumeInfo.title);
+  console.log(ids, titles);
 }
 constructBooks(await getBooks(4));
 
