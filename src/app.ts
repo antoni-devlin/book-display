@@ -1,3 +1,5 @@
+export {}; //Added to stop tsc yelling about top-level awaits...
+
 let userId = "105494066543086834878"; //My Google Books userId - this is publically available
 let bookshelves = 4; //temporary hardcoded bookshelf with id "4" - "have read"
 let fields =
@@ -12,15 +14,15 @@ async function getShelves() {
 }
 
 // getBooks takes a shelfId, and makes a fetch request to the api to get all the books on this shelf
-async function getBooks(bookshelfId) {
+async function getBooks(bookshelfId: number) {
   let queryString = `https://www.googleapis.com/books/v1/users/${userId}/bookshelves/${bookshelfId}/volumes?${fields})`;
   let response = await fetch(queryString);
   return response.json();
 }
 
 // parsebooks parses the json response received from getBooks to make each bit of data easier to work with
-function parseBooks(booksObject) {
-  booksObject["items"].forEach((book) => {
+function parseBooks(booksObject: any) {
+  booksObject["items"].forEach((book: any) => {
     let bookId = book.id;
     let title = book.volumeInfo.title;
     let authors = book.volumeInfo.authors;
